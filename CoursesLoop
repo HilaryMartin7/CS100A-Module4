@@ -1,0 +1,52 @@
+class Courses:
+    def __init__(self, name):
+        """
+        Create a default department for courses 
+        """
+
+        self.name = name
+        self.list = []
+       
+
+    def begin(self, time, location):
+        """
+        Time when course begins
+        """
+        print (self.name + ' is starting now at ' + time + ' in ' + location)
+
+
+    
+    def input_course(self):
+        """ 
+        Prompt to input faculty members one at a time and store to list
+        """
+        while True:
+            course_number = input("Enter the course number (or 'done' to finish): ")
+            if course_number.lower() == "done":
+                break
+            course_name = input(f"Enter {course_number} title: ")
+            course_credit= input(f"Enter {course_number} credits: ")
+            self.course = (course_number, course_name, course_credit)
+            self.list.append(self.course)
+
+
+    def print_list(self):
+        """
+        Display the list of faculty for the department using tabulate format
+        """
+
+        print(f"\nCourse List for {self.name}:")
+        from tabulate import tabulate
+        table = tabulate (self.list)
+        print(table)
+
+
+if __name__ == "__main__":
+    from datetime import datetime
+    dept_name = input("Enter the department name: ")
+    dept = Courses(dept_name)
+    dept.input_course()
+    dept.print_list()
+    
+
+
