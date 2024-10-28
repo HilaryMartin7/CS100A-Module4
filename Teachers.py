@@ -13,7 +13,7 @@ class Facilty:
         """
         Set time for grading
         """
-        print(f'{self.name} is studying')
+        print(f'{self.name} is grading exams')
 
     def submitgrade(self, course):
         """
