@@ -1,74 +1,52 @@
 import random
+import emoji
+#set number of dice to 5 standard for yahtzee, could be modified with input later
 total_dice = 5
-num_kept_dice = 0
+#set number of turns to 3
 turns = 3
+       
 
 def rollDice(n):
+  """
+  To roll dice initially based on total dice in game
+  """
   rolls = [random.randint(1,6) for i in range (n)]
   return rolls
 
-currRolls = rollDice(total_dice)
-print(currRolls)
 
+def chooseDiceReroll():
+  """
+  Prompts user to select dice to remove and roll again
+  """
+  while True:
+    dice_to_remove = (input("Which dice would you like to roll again? or 'roll' when done removing: "))
+    if dice_to_remove.lower() == 'roll':
+      break
+    dice_to_remove = int(dice_to_remove)
+    currRolls.remove(dice_to_remove)
+    print(f'Your current dice:  {currRolls}')
+
+
+def rollDiceAgain(total_dice, currRolls):
+  """
+  If the number of dice in current roll is less than total, roll again using random
+  Loop to do this for number of dice required to get to total of game (5)
+  
+  """
+  dice_to_roll = total_dice - len(currRolls)
+  print (f'\nRolling {dice_to_roll} dice.')
+  for i in range (dice_to_roll):
+    currRolls.insert((len(currRolls)), random.randint(1,6) )
+ 
+
+
+currRolls = rollDice(total_dice)
+print(f'Your current dice: {currRolls}')
 
 while turns > 0:
+  chooseDiceReroll()
+  rollDiceAgain(total_dice, currRolls)
+  turns-=1
+  print (f'Your current dice:  {currRolls}')
+print (emoji.emojize("Your game is over! Score your roll! :game_die:\n"))
 
-    kept_dice = []
-    while True:
-        dice_to_keep = (input("Which dice would you like to keep? or 'none': "))
-        if dice_to_keep.lower() == 'none':
-            break
-        kept_dice.append(dice_to_keep)
-        print(kept_dice)
-
-# nextRolls = rollDice(total_dice-len(kept_dice))
-# print(nextRolls)
-
-# while True:
-#     reroll = input(f"first dice to re-roll (or none): ")
-#     if reroll.lower()== "none":
-#         break
-#     currRolls.remove(reroll)
-
-
-# dice = ['1','2','3','4','5','6']
-
-# #Number of turns player has
-# turns = 3
-
-# #This is the group of dice kept by the player
-# kept_dice = []
-
-# def roll():
-#     #This is the group of dice randomly chosen
-#     rolled_dice = []
-
-#     #Generate up to 5 random dice based on how many have been kept so far
-#     for _ in range(5 - len(kept_dice)):
-
-#         #Append random dice value to rolled_dice array
-#         rolled_dice.append(random.choice(dice))
-
-#     #Print roll group
-#     print(rolled_dice)
-
-#     dice_to_keep = int(input("Which dice would you like to keep? 1 - 5: "))
-    
-#     kept_dice.append(rolled_dice[dice_to_keep-1])
-
-
-
-# while turns != 0:
-
-#     #Let the user know how many turns they have left
-#     print(f'You have {turns} turns left.')
-
-#     #Roll dice
-#     roll()
-
-#     #Subtract 1 turn
-#     turns -= 1
-
-# #After all turns, show the kept dice:
-# print("Kept dice:")
-# print(kept_dice)
